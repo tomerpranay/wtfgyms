@@ -1,0 +1,18 @@
+=== BENCHMARK Q4: Peak Hour Heatmap (7d) ===
+Target: < 0.3ms
+Measured Execution Time: 0.286 ms
+Index Status: ✅ INDEX USED
+Required Index: Materialized view unique index
+
+EXPLAIN ANALYZE OUTPUT:
+Bitmap Heap Scan on gym_hourly_stats  (cost=5.20..15.69 rows=119 width=32) (actual time=0.112..0.189 rows=119 loops=1)
+  Recheck Cond: (gym_id = '4a9bf9b7-7323-4ae8-afa9-df9e44ff8f78'::uuid)
+  Heap Blocks: exact=9
+  Buffers: shared hit=12
+  ->  Bitmap Index Scan on idx_gym_hourly_stats_unique  (cost=0.00..5.17 rows=119 width=0) (actual time=0.085..0.086 rows=119 loops=1)
+        Index Cond: (gym_id = '4a9bf9b7-7323-4ae8-afa9-df9e44ff8f78'::uuid)
+        Buffers: shared hit=3
+Planning:
+  Buffers: shared hit=39
+Planning Time: 1.160 ms
+Execution Time: 0.286 ms

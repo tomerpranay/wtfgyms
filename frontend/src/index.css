@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #0D0D1A;
+    color: #E2E8F0;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0D1A;
+}
+::-webkit-scrollbar-thumb {
+  background: #2E2E48;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4A4A6A;
+}
+
+/* Pulsing Status Animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.6);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.9);
+    transform: scale(1.15);
+  }
+}
+
+.pulse-green {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes pulse-red-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 71, 87, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 71, 87, 0.9);
+  }
+}
+
+.pulse-red {
+  animation: pulse-red-glow 1.5s infinite ease-in-out;
+}
+
+/* Skeleton Loading Shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-box {
+  background: linear-gradient(90deg, #1A1A2E 25%, #2A2A48 50%, #1A1A2E 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}

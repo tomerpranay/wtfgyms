@@ -1,0 +1,18 @@
+=== BENCHMARK Q3: Churn Risk Members ===
+Target: < 1.0ms
+Measured Execution Time: 0.324 ms
+Index Status: ✅ INDEX USED
+Required Index: idx_members_churn_risk (partial)
+
+EXPLAIN ANALYZE OUTPUT:
+Bitmap Heap Scan on members  (cost=5.85..229.44 rows=202 width=37) (actual time=0.085..0.233 rows=231 loops=1)
+  Recheck Cond: ((last_checkin_at < (now() - '45 days'::interval)) AND (status = 'active'::text))
+  Heap Blocks: exact=26
+  Buffers: shared hit=28
+  ->  Bitmap Index Scan on idx_members_churn_risk  (cost=0.00..5.80 rows=202 width=0) (actual time=0.057..0.057 rows=231 loops=1)
+        Index Cond: (last_checkin_at < (now() - '45 days'::interval))
+        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=61
+Planning Time: 1.026 ms
+Execution Time: 0.324 ms

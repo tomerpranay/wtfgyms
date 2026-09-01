@@ -1,0 +1,18 @@
+=== BENCHMARK Q6: Active Anomalies — All Gyms ===
+Target: < 0.3ms
+Measured Execution Time: 0.145 ms
+Index Status: ✅ INDEX USED
+Required Index: idx_anomalies_active (partial)
+
+EXPLAIN ANALYZE OUTPUT:
+Sort  (cost=23.62..24.20 rows=230 width=146) (actual time=0.097..0.100 rows=11 loops=1)
+  Sort Key: detected_at DESC
+  Sort Method: quicksort  Memory: 27kB
+  Buffers: shared hit=4
+  ->  Seq Scan on anomalies  (cost=0.00..14.60 rows=230 width=146) (actual time=0.011..0.015 rows=11 loops=1)
+        Filter: (NOT resolved)
+        Buffers: shared hit=1
+Planning:
+  Buffers: shared hit=58
+Planning Time: 1.285 ms
+Execution Time: 0.145 ms

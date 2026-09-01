@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: livepulse-db
+    restart: always
+    environment:
+      POSTGRES_DB: wtflivepulse
+      POSTGRES_USER: wtfuser
+      POSTGRES_PASSWORD: wtfpassword
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wtfuser -d wtflivepulse"]
+      interval: 3s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: livepulse-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      NODE_ENV: production
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: wtflivepulse
+      POSTGRES_USER: wtfuser
+      POSTGRES_PASSWORD: wtfpassword
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: livepulse-frontend
+    restart: always
+    ports:
+      - "3002:3000"
+    environment:
+      VITE_API_URL: http://localhost:5000
+      VITE_WS_URL: ws://localhost:5000
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

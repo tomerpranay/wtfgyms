@@ -1,0 +1,17 @@
+=== BENCHMARK Q1: Live Occupancy — Single Gym ===
+Target: < 0.5ms
+Measured Execution Time: 0.131 ms
+Index Status: ✅ INDEX USED
+Required Index: idx_checkins_live_occupancy (partial)
+
+EXPLAIN ANALYZE OUTPUT:
+Aggregate  (cost=5.25..5.26 rows=1 width=8) (actual time=0.069..0.070 rows=1 loops=1)
+  Buffers: shared hit=2
+  ->  Index Only Scan using idx_checkins_live_occupancy on checkins  (cost=0.15..5.11 rows=55 width=0) (actual time=0.054..0.059 rows=20 loops=1)
+        Index Cond: (gym_id = '4a9bf9b7-7323-4ae8-afa9-df9e44ff8f78'::uuid)
+        Heap Fetches: 0
+        Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=85
+Planning Time: 1.790 ms
+Execution Time: 0.131 ms

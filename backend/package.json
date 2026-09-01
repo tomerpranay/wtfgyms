@@ -1,0 +1,32 @@
+{
+  "name": "wtf-livepulse-backend",
+  "version": "1.0.0",
+  "description": "WTF LivePulse Real-Time Multi-Gym Intelligence Engine Backend",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node src/app.js",
+    "seed": "node src/db/seeds/seed.js",
+    "migrate": "node src/db/migrations/runMigrations.js",
+    "test": "jest --detectOpenHandles --forceExit --runInBand",
+    "test:coverage": "jest --coverage --detectOpenHandles --forceExit --runInBand"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.12.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
+  }
+}

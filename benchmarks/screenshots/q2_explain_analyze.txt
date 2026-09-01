@@ -1,0 +1,20 @@
+=== BENCHMARK Q2: Today's Revenue — Single Gym ===
+Target: < 0.8ms
+Measured Execution Time: 0.161 ms
+Index Status: ✅ INDEX USED
+Required Index: idx_payments_gym_date (composite)
+
+EXPLAIN ANALYZE OUTPUT:
+Aggregate  (cost=11.46..11.47 rows=1 width=32) (actual time=0.084..0.085 rows=1 loops=1)
+  Buffers: shared hit=4
+  ->  Bitmap Heap Scan on payments  (cost=4.31..11.46 rows=2 width=5) (actual time=0.055..0.065 rows=2 loops=1)
+        Recheck Cond: ((gym_id = '4a9bf9b7-7323-4ae8-afa9-df9e44ff8f78'::uuid) AND (paid_at >= CURRENT_DATE))
+        Heap Blocks: exact=2
+        Buffers: shared hit=4
+        ->  Bitmap Index Scan on idx_payments_gym_date  (cost=0.00..4.30 rows=2 width=0) (actual time=0.050..0.050 rows=2 loops=1)
+              Index Cond: ((gym_id = '4a9bf9b7-7323-4ae8-afa9-df9e44ff8f78'::uuid) AND (paid_at >= CURRENT_DATE))
+              Buffers: shared hit=2
+Planning:
+  Buffers: shared hit=76
+Planning Time: 1.398 ms
+Execution Time: 0.161 ms
