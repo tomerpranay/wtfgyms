@@ -46,7 +46,7 @@ services:
     container_name: livepulse-frontend
     restart: always
     ports:
-      - "3002:3000"
+      - "3000:3000"
     environment:
       VITE_API_URL: http://localhost:5000
       VITE_WS_URL: ws://localhost:5000
